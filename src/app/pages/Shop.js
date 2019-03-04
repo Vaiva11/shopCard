@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./Shop.css";
 
-function Shop({ products }) {
+function Shop({ products, toggleFavorite }) {
   return (
     <div className="cards">
       {products.map(product => (
@@ -22,7 +22,9 @@ function Shop({ products }) {
               {product.currencySymbol}
             </p>
             <button type="button">Add to cart 📦</button>
-            <button type="button">Add to fav 💜</button>
+            <button type="button" onClick={() => toggleFavorite(product.id)}>
+              {product.isFavorite ? "💔" : "💖"}
+            </button>
           </p>
         </div>
       ))}
