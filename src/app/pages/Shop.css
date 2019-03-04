@@ -1,0 +1,45 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  align-items: center;
+  max-width: 70%;
+}
+
+.card {
+  max-width: 250px;
+  margin-top: 30px;
+  text-align: center;
+  border: 1px solid grey;
+  padding: 5px;
+}
+
+.card:hover {
+  box-shadow: 5px 10px 18px #888888;
+  transition: 0.2s;
+}
+
+img {
+  max-width: 250px;
+}
+
+button {
+  margin: 5px;
+  background-color: white;
+  border: 1px solid rgb(150, 150, 150);
+}
+
+button:hover {
+  box-shadow: 3px 5px 5px #888888;
+  transition: 0.2s;
+}
+
+#inLine {
+  display: flex;
+}
+
+#inLine h1 {
+  font-weight: bold;
+  padding-right: 10px;
+}
