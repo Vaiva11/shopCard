@@ -1,1 +1,2 @@
-export { default as Shop } from "./Shop";
+export { default as Shop } from "./shop";
+export { default as Favorites } from "./Favorites";

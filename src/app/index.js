@@ -1,6 +1,6 @@
 import React from "react";
 import { PacmanLoader } from "react-spinners";
-import { Shop } from "./pages";
+import { Shop, Favorites } from "./pages";
 import { PageLayout } from "./components";
 
 const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
@@ -53,6 +53,10 @@ class App extends React.Component {
       <PageLayout navLinks={NAV_LINKS}>
         {error && <h1> ERORAS 😣 {error} </h1>}
         {loading && <PacmanLoader />}
+        <Favorites
+          products={products.filter(product => product.isFavorite)}
+          toggleFavorite={this.toggleFavorite}
+        />
         <Shop products={products} toggleFavorite={this.toggleFavorite} />
       </PageLayout>
     );
