@@ -1,6 +1,6 @@
 import React from "react";
 import { PacmanLoader } from "react-spinners";
-import { Shop, Favorites } from "./pages";
+import { Shop, Favorites, Cart } from "./pages";
 import { PageLayout } from "./components";
 
 const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
@@ -16,6 +16,7 @@ class App extends React.Component {
       products: [],
       error: null,
       loading: false,
+      route: "shop",
     };
   }
 
@@ -27,6 +28,7 @@ class App extends React.Component {
         const products = json.map(products => ({
           ...products,
           isFavorite: false,
+          cartCount: 0,
         }));
         this.setState({ products, loading: false });
       })
@@ -46,6 +48,54 @@ class App extends React.Component {
     }));
   };
 
+  updateCartCount = (id, value) => {
+    this.setState(state => ({
+      products: state.products.map(product => {
+        if (product.id === id) {
+          return { ...product, cartCount: value };
+        }
+        return product;
+      }),
+    }));
+  };
+
+  renderRoute = () => {
+    const { route, products } = this.state;
+    switch (route) {
+      case "shop":
+        return (
+          <Shop
+            products={products}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+
+      case "favorites":
+        return (
+          <Favorites
+            products={products.filter(product => product.isFavorite)}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+
+      case "cart":
+        return (
+          <Cart products={products.filter(product => product.cartCount > 0)} />
+        );
+
+      default:
+        return (
+          <Shop
+            products={products}
+            toggleFavorite={this.toggleFavorite}
+            updateCartCount={this.updateCartCount}
+          />
+        );
+    }
+  };
+
   // if error === true tada h1
   render() {
     const { products, loading, error } = this.state;
@@ -53,11 +103,7 @@ class App extends React.Component {
       <PageLayout navLinks={NAV_LINKS}>
         {error && <h1> ERORAS 😣 {error} </h1>}
         {loading && <PacmanLoader />}
-        <Favorites
-          products={products.filter(product => product.isFavorite)}
-          toggleFavorite={this.toggleFavorite}
-        />
-        <Shop products={products} toggleFavorite={this.toggleFavorite} />
+        {this.renderRoute()}
       </PageLayout>
     );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./index.css";
 
 function ProductCard({
   id,
@@ -8,6 +9,8 @@ function ProductCard({
   price,
   currencySymbol,
   isFavorite,
+  cartCount,
+  updateCartCount,
   toggleFavorite,
 }) {
   return (
@@ -26,10 +29,19 @@ function ProductCard({
           <h1>currencySymbol:</h1>
           {currencySymbol}
         </p>
-        <button type="button">Add to cart 📦</button>
-        <button type="button" onClick={() => toggleFavorite(id)}>
-          {isFavorite ? "💔" : "💖"}
-        </button>
+        <p id="inLine">
+          <input
+            type="number"
+            min={0}
+            onChange={e => {
+              updateCartCount(id, e.target.value);
+            }}
+            value={cartCount}
+          />
+          <button type="button" onClick={() => toggleFavorite(id)}>
+            {isFavorite ? "💔" : "💖"}
+          </button>
+        </p>
       </p>
     </div>
   );
@@ -42,7 +54,10 @@ ProductCard.propTypes = {
   currencySymbol: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   isFavorite: PropTypes.string.isRequired,
+  cartCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    .isRequired,
   toggleFavorite: PropTypes.func.isRequired,
+  updateCartCount: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

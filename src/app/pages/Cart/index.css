@@ -1,0 +1,19 @@
+.Cart-item img {
+  height: 100px;
+}
+
+.Cart-item span {
+  font-weight: bold;
+}
+
+.Total {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.Cart-item {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

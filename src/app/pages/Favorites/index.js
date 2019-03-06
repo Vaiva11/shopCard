@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ProductCard } from "../../components";
+import { ProductCard, ProductsContainer } from "../../components";
 
-function Favorites({ products, toggleFavorite }) {
+function Favorites({ products, toggleFavorite, updateCartCount }) {
   return (
-    <div className="cards">
+    <div className="ProductsContainer">
       {products.map(product => (
         <ProductCard
           key={product.id}
           {...product}
           toggleFavorite={toggleFavorite}
+          updateCartCount={updateCartCount}
         />
       ))}
     </div>
