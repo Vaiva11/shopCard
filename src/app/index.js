@@ -4,7 +4,7 @@ import { Shop, Favorites, Cart } from "./pages";
 import { PageLayout } from "./components";
 
 const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
-  <button type="button" onClick={() => console.log(link)}>
+  <button type="button" onClick={() => this.setState({ route: link })}>
     {link}
   </button>
 ));
@@ -18,6 +18,11 @@ class App extends React.Component {
       loading: false,
       route: "shop",
     };
+    this.NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
+      <button type="button" onClick={() => this.setState({ route: link })}>
+        {link}
+      </button>
+    ));
   }
 
   componentDidMount() {
@@ -25,8 +30,8 @@ class App extends React.Component {
     fetch("https://boiling-reaches-93648.herokuapp.com/food-shop/products")
       .then(response => response.json())
       .then(json => {
-        const products = json.map(products => ({
-          ...products,
+        const products = json.map(product => ({
+          ...product,
           isFavorite: false,
           cartCount: 0,
         }));
@@ -98,9 +103,9 @@ class App extends React.Component {
 
   // if error === true tada h1
   render() {
-    const { products, loading, error } = this.state;
+    const { loading, error } = this.state;
     return (
-      <PageLayout navLinks={NAV_LINKS}>
+      <PageLayout navLinks={this.NAV_LINKS}>
         {error && <h1> ERORAS 😣 {error} </h1>}
         {loading && <PacmanLoader />}
         {this.renderRoute()}
