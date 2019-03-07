@@ -25,6 +25,7 @@ Shop.propTypes = {
     })
   ),
   toggleFavorite: PropTypes.func.isRequired,
+  updateCartCount: PropTypes.func.isRequired,
 };
 // Shape pasiekia arejaus objektus
 

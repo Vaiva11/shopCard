@@ -1,5 +1,11 @@
 import React from "react";
 import { PacmanLoader } from "react-spinners";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import { Shop, Favorites, Cart } from "./pages";
 import { PageLayout } from "./components";
 
@@ -16,12 +22,9 @@ class App extends React.Component {
       products: [],
       error: null,
       loading: false,
-      route: "shop",
     };
     this.NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
-      <button type="button" onClick={() => this.setState({ route: link })}>
-        {link}
-      </button>
+      <Link to={`/${link}`}>{link}</Link>
     ));
   }
 
@@ -64,7 +67,7 @@ class App extends React.Component {
     }));
   };
 
-  renderRoute = () => {
+  /* renderRoute = () => {
     const { route, products } = this.state;
     switch (route) {
       case "shop":
@@ -99,17 +102,52 @@ class App extends React.Component {
           />
         );
     }
+  }; */
+
+  renderShop = () => {
+    const { products } = this.state;
+    return (
+      <Shop
+        products={products}
+        toggleFavorite={this.toggleFavorite}
+        updateCartCount={this.updateCartCount}
+      />
+    );
+  };
+
+  renderFavorites = () => {
+    const { products } = this.state;
+    return (
+      <Favorites
+        products={products.filter(product => product.isFavorite)}
+        toggleFavorite={this.toggleFavorite}
+        updateCartCount={this.updateCartCount}
+      />
+    );
+  };
+
+  renderCart = () => {
+    const { products } = this.state;
+    return (
+      <Cart products={products.filter(product => product.cartCount > 0)} />
+    );
   };
 
   // if error === true tada h1
   render() {
     const { loading, error } = this.state;
     return (
-      <PageLayout navLinks={this.NAV_LINKS}>
-        {error && <h1> ERORAS 😣 {error} </h1>}
-        {loading && <PacmanLoader />}
-        {this.renderRoute()}
-      </PageLayout>
+      <Router>
+        <PageLayout navLinks={this.NAV_LINKS}>
+          {error && <h1> ERORAS 😣 {error} </h1>}
+          {loading && <PacmanLoader />}
+
+          <Route exact path="/shop" component={this.renderShop} />
+          <Route exact path="/favorites" component={this.renderFavorites} />
+          <Route exact path="/cart" component={this.renderCart} />
+          <Redirect exact from="/" to="/shop" />
+        </PageLayout>
+      </Router>
     );
   }
 }
