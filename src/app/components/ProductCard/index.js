@@ -23,11 +23,7 @@ function ProductCard({
         </p>
         <p id="inLine">
           <h1>Price:</h1>
-          {price}
-        </p>
-        <p id="inLine">
-          <h1>currencySymbol:</h1>
-          {currencySymbol}
+          {price} {currencySymbol}
         </p>
         <p id="inLine">
           <input
