@@ -1,3 +1,6 @@
+import { toggleFavoriteById } from "./utils";
+import { updateCartCountById } from "./utils";
+
 const DEFAULT_STATE = {
   products: [],
   error: null,
@@ -14,6 +17,20 @@ export default (state = DEFAULT_STATE, action) => {
 
     case "FETCH_PRODUCTS_FAILURE":
       return { ...state, loading: false, error: action.payload };
+
+    case "TOGGLE_FAVORITE_PRODUCT":
+      return {
+        ...state,
+        products: toggleFavoriteById(state.products, action.payload),
+      };
+
+    case "UPDATE_PRODUCT_CARD_COUNT": {
+      const { id, count } = action.payload;
+      return {
+        ...state,
+        products: updateCartCountById(state.products, id, count),
+      };
+    }
 
     default:
       return state;

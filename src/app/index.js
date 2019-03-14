@@ -63,41 +63,12 @@ class App extends React.Component {
       .catch(() => getProductsFailure("Something went wrong"));
   }
 
-  toggleFavorite = id => {
-    this.setState(state => ({
-      products: state.products.map(product => {
-        if (product.id === id) {
-          return { ...product, isFavorite: !product.isFavorite };
-        }
-        return product;
-      }),
-    }));
-  };
-
-  updateCartCount = (id, value) => {
-    this.setState(state => ({
-      products: state.products.map(product => {
-        if (product.id === id) {
-          return { ...product, cartCount: value };
-        }
-        return product;
-      }),
-    }));
-  };
-
   login = (intended, history) =>
     this.setState({ allow: true }, () => {
       history.replace(intended || "/favorites");
     });
 
   logout = () => this.setState({ allow: false });
-
-  renderCart = () => {
-    const { products } = this.state;
-    return (
-      <Cart products={products.filter(product => product.cartCount > 0)} />
-    );
-  };
 
   // if error === true tada h1
   render() {
@@ -112,12 +83,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/shop" component={Shop} />
             <Route exact path="/favorites" component={Favorites} />
-            <PrivateRoute
-              allow={allow}
-              exact
-              path="/cart"
-              component={this.renderCart}
-            />
+            <PrivateRoute allow={allow} exact path="/cart" component={Cart} />
             <Route exact path="/404" component={PageNotFound} />
             <Redirect exact from="/" to="/shop" />
             <Redirect to="/404" />

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { ProductsContainer } from "../../components";
 import "./index.css";
 
@@ -28,4 +29,10 @@ function Cart({ products }) {
   );
 }
 
-export default Cart;
+function mapStateToProps(state) {
+  return {
+    products: state.products.filter(product => product.cartCount > 0),
+  };
+}
+
+export default connect(mapStateToProps)(Cart);
