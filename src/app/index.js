@@ -8,7 +8,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
-import { Shop, Favorites, Cart, PageNotFound } from "./pages";
+import { Shop, Favorites, Cart, PageNotFound, Login } from "./pages";
 import { PageLayout } from "./components";
 
 function PrivateRoute({ allow, path, ...props }) {
@@ -78,12 +78,18 @@ class App extends React.Component {
     return (
       <Router>
         <PageLayout navLinks={this.NAV_LINKS}>
-          {error && <h1> ERORAS 😣 {error} </h1>}
+          {error && <span> {error} </span>}
           {loading && <PacmanLoader />}
           <Switch>
+            <Route exact path="/login" component={Login} />
             <Route exact path="/shop" component={Shop} />
-            <Route exact path="/favorites" component={Favorites} />
-            <PrivateRoute allow={allow} exact path="/cart" component={Cart} />
+            <PrivateRoute
+              allow={allow}
+              exact
+              path="/favorites"
+              component={Favorites}
+            />
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/404" component={PageNotFound} />
             <Redirect exact from="/" to="/shop" />
             <Redirect to="/404" />

@@ -1,0 +1,29 @@
+.Login {
+  display: flex;
+
+  .Login--form,
+  input {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0 auto;
+    min-width: 320px;
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 400px;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  input,
+  button {
+    line-height: 32px;
+    font-size: 24px;
+    border: solid grey 1px;
+    border-radius: 5px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
