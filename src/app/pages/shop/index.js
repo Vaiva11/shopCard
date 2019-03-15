@@ -1,19 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { ProductCard, ProductsContainer } from "../../components";
+import { ProductCard } from "../../components";
 
-function Shop({
-  products,
-  toggleFavorite,
-  updateCartCount,
-  history,
-  login,
-  logout,
-  allow,
-  location,
-}) {
-  const intended = location.state && location.state.intendedLocation;
+function Shop({ products, toggleFavorite, updateCartCount }) {
   return (
     <div>
       <div className="ProductsContainer">
@@ -26,28 +16,14 @@ function Shop({
           />
         ))}
       </div>
-
-      {allow && (
-        <button type="button" onClick={() => history.push("/cart")}>
-          Go to checkout
-        </button>
-      )}
-      <button
-        type="button"
-        onClick={() => (allow ? logout() : login(intended))}
-      >
-        {allow ? "logout" : "login"}
-      </button>
     </div>
   );
 }
 
 Shop.propTypes = {
-  history: PropTypes.shape({}).isRequired,
   products: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
     })
   ),
   toggleFavorite: PropTypes.func.isRequired,
@@ -61,7 +37,7 @@ Shop.defaultProps = {
 
 function mapStateToProps(state) {
   return {
-    products: state.products,
+    products: state.shop.products,
   };
 }
 

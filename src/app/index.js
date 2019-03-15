@@ -9,22 +9,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { Shop, Favorites, Cart, PageNotFound, Login } from "./pages";
-import { PageLayout } from "./components";
-
-function PrivateRoute({ allow, path, ...props }) {
-  if (allow) {
-    return <Route {...props} path={path} />;
-  }
-
-  return (
-    <Redirect
-      to={{
-        pathname: "/shop",
-        state: { intendedLocation: path },
-      }}
-    />
-  );
-}
+import { PageLayout, PrivateRoute } from "./components";
 
 const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
   <button type="button" onClick={() => this.setState({ route: link })}>
@@ -35,12 +20,7 @@ const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      products: [],
-      error: null,
-      loading: false,
-      allow: true,
-    };
+
     this.NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
       <NavLink to={`/${link}`}>{link}</NavLink>
     ));
@@ -63,16 +43,7 @@ class App extends React.Component {
       .catch(() => getProductsFailure("Something went wrong"));
   }
 
-  login = (intended, history) =>
-    this.setState({ allow: true }, () => {
-      history.replace(intended || "/favorites");
-    });
-
-  logout = () => this.setState({ allow: false });
-
-  // if error === true tada h1
   render() {
-    const { allow } = this.state;
     const { loading, error } = this.props;
 
     return (
@@ -83,12 +54,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/shop" component={Shop} />
-            <PrivateRoute
-              allow={allow}
-              exact
-              path="/favorites"
-              component={Favorites}
-            />
+            <PrivateRoute exact path="/favorites" component={Favorites} />
             <Route exact path="/cart" component={Cart} />
             <Route exact path="/404" component={PageNotFound} />
             <Redirect exact from="/" to="/shop" />

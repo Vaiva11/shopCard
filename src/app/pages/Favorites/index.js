@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { ProductCard, ProductsContainer } from "../../components";
+import { ProductCard } from "../../components";
 
 function Favorites({ products, toggleFavorite, updateCartCount }) {
   return (
@@ -24,18 +24,15 @@ Favorites.propTypes = {
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
     })
-  ),
+  ).isRequired,
+  updateCartCount: PropTypes.func.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
 };
 // Shape pasiekia arejaus objektus
 
-Favorites.defaultProps = {
-  products: [],
-};
-
 function mapStateToProps(state) {
   return {
-    products: state.products.filter(product => product.isFavorite),
+    products: state.shop.products.filter(product => product.isFavorite),
   };
 }
 
