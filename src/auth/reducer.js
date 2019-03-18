@@ -1,13 +1,15 @@
+import * as types from "./actionTypes";
+
 const DEFAULT_STATE = {
   token: null,
 };
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case "LOGIN":
+    case types.LOGIN:
       return { ...state, token: new Date().getTime() };
 
-    case "LOGOUT":
+    case types.LOGOUT:
       return { ...state, token: null };
 
     default:

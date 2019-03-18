@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import "./index.scss";
+import auth from "../../../auth";
 
 class Login extends React.Component {
   constructor(props) {
@@ -63,7 +64,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: () => dispatch({ type: "LOGIN" }),
+    login: () => dispatch({ type: auth.types.LOGIN }),
   };
 }
 

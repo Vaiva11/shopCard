@@ -10,6 +10,8 @@ import {
 } from "react-router-dom";
 import { Shop, Favorites, Cart, PageNotFound, Login } from "./pages";
 import { PageLayout, PrivateRoute } from "./components";
+import auth from "../auth";
+import shop from "../shop";
 
 const NAV_LINKS = ["shop", "cart", "favorites"].map(link => (
   <button type="button" onClick={() => this.setState({ route: link })}>
@@ -75,11 +77,19 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getProducts: () => dispatch({ type: "FETCH_PRODUCTS" }),
+    getProducts: () =>
+      dispatch({
+        type: shop.types.FETCH_PRODUCTS,
+      }),
     getProductsSuccess: payload =>
-      dispatch({ type: "FETCH_PRODUCTS_SUCCESS", payload }),
+      dispatch({ type: shop.types.FETCH_PRODUCTS_SUCCESS, payload }),
     getProductsFailure: payload =>
-      dispatch({ type: "FETCH_PRODUCTS_FAILURE", payload }),
+      dispatch({
+        type: shop.types.FETCH_PRODUCTS_FAILURE,
+        payload,
+      }),
+
+    logout: () => dispatch({ type: auth.types.LOGOUT }),
   };
 }
 
