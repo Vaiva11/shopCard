@@ -35,7 +35,7 @@ class Login extends React.Component {
           <input
             onChange={e => this.setState({ username: e.target.value })}
             type="text"
-            placeholder="Your IRC Nick"
+            placeholder="Nickname"
           />
           <input
             onChange={e => this.setState({ password: e.target.value })}
