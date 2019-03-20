@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./index.scss";
+import "./index.css";
 
 function ProductCard({
   image,
@@ -14,27 +14,31 @@ function ProductCard({
   updateCartCount,
 }) {
   return (
-    <div className="Product-card">
-      <div className="Product-card--image">
+    <div className="card">
+      <p key={id}>
         <img src={image} alt={name} />
-      </div>
-      <div className="Product-card--content">
-        <h3>{name}</h3>
-        <p>{`${price}${currencySymbol}`}</p>
-        <div className="Product-card--content-cta">
+        <p id="inLine">
+          <h1>Name:</h1>
+          {name}
+        </p>
+        <p id="inLine">
+          <h1>Price:</h1>
+          {price} {currencySymbol}
+        </p>
+        <p id="inLine">
           <input
             type="number"
             min={0}
-            onChange={e => updateCartCount(id, e.target.value)}
+            onChange={e => {
+              updateCartCount(id, e.target.value);
+            }}
             value={cartCount}
           />
           <button type="button" onClick={() => toggleFavorite(id)}>
-            <span role="img" aria-label="Add to Favorites">
-              {isFavorite ? "💔" : "❤️"}
-            </span>
+            {isFavorite ? "💔" : "💖"}
           </button>
-        </div>
-      </div>
+        </p>
+      </p>
     </div>
   );
 }
