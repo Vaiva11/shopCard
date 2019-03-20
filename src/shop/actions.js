@@ -18,15 +18,12 @@ export const getProducts = () => ({
     types: [
       types.FETCH_PRODUCTS,
       {
-        type: types.FETCH_PRODUCTS_SUCCESS, payload: products.map(product => ({
-          ...product,
-          isFavorite: false,
-          cartCount: 0,
-        })),
-      
+        type: types.FETCH_PRODUCTS_SUCCESS,
+      },
+      {
         type: types.FETCH_PRODUCTS_FAILURE,
         payload: () => "Something REALLY wrong",
-      
+      },
     ],
   },
 });
