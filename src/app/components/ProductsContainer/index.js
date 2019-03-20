@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./index.scss";
+import "./index.css";
 
 function ProductsContainer({ children, className }) {
-  return <div className={`Products-list ${className}`}>{children}</div>;
+  return <div className={`ProductsContainer ${className}`}>{children}</div>;
 }
 
 ProductsContainer.propTypes = {

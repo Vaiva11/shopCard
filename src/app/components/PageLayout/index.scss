@@ -34,7 +34,8 @@
         cursor: pointer;
         transition: all 0.3s linear;
 
-        &:hover, &.active {
+        &:hover,
+        &.active {
           background: #fff;
           color: #46924a;
         }
