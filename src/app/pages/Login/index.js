@@ -35,7 +35,7 @@ class Login extends React.Component {
           <input
             onChange={e => this.setState({ username: e.target.value })}
             type="text"
-            placeholder="Nickname"
+            placeholder="Your IRC Nick"
           />
           <input
             onChange={e => this.setState({ password: e.target.value })}
@@ -53,22 +53,15 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({}).isRequired,
   login: PropTypes.func.isRequired,
 };
 
-function mapStateToProps(state) {
-  return {
-    isLogged: !!state.auth.tokken,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
+const enhance = connect(
+  null,
+  dispatch => ({
     login: () => dispatch({ type: auth.types.LOGIN }),
-  };
-}
+  })
+);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Login);
+export default enhance(Login);

@@ -1,7 +1,8 @@
 export default (products, id, cartCount) =>
   products.map(product => {
-    if (id === product.id) {
+    if (product.id === id) {
       return { ...product, cartCount };
     }
+
     return product;
   });

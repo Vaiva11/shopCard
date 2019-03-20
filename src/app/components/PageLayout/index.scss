@@ -23,18 +23,18 @@
 
       button,
       a {
-        padding: 0 20px;
-        text-decoration: none;
+        display: inline-block;
         font-size: 18px;
         line-height: 42px;
         background: transparent;
+        padding: 0 20px;
+        text-decoration: none;
         border: none;
         color: #fff;
         cursor: pointer;
         transition: all 0.3s linear;
 
-        &:hover,
-        &.active {
+        &:hover, &.active {
           background: #fff;
           color: #46924a;
         }

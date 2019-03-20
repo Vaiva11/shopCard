@@ -1,44 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./index.css";
+import "./index.scss";
 
 function ProductCard({
-  id,
   image,
   name,
   price,
   currencySymbol,
+  id,
   isFavorite,
   cartCount,
-  updateCartCount,
   toggleFavorite,
+  updateCartCount,
 }) {
   return (
-    <div className="card">
-      <p key={id}>
+    <div className="Product-card">
+      <div className="Product-card--image">
         <img src={image} alt={name} />
-        <p id="inLine">
-          <h1>Name:</h1>
-          {name}
-        </p>
-        <p id="inLine">
-          <h1>Price:</h1>
-          {price} {currencySymbol}
-        </p>
-        <p id="inLine">
+      </div>
+      <div className="Product-card--content">
+        <h3>{name}</h3>
+        <p>{`${price}${currencySymbol}`}</p>
+        <div className="Product-card--content-cta">
           <input
             type="number"
             min={0}
-            onChange={e => {
-              updateCartCount(id, e.target.value);
-            }}
+            onChange={e => updateCartCount(id, e.target.value)}
             value={cartCount}
           />
           <button type="button" onClick={() => toggleFavorite(id)}>
-            {isFavorite ? "💔" : "💖"}
+            <span role="img" aria-label="Add to Favorites">
+              {isFavorite ? "💔" : "❤️"}
+            </span>
           </button>
-        </p>
-      </p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -49,7 +45,7 @@ ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
   currencySymbol: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  isFavorite: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   cartCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     .isRequired,
   toggleFavorite: PropTypes.func.isRequired,

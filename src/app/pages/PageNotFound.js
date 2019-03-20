@@ -10,11 +10,11 @@ function PageNotFound() {
         height: "100vh",
         fontSize: "42px",
         lineHeight: "64px",
-        fontWeight: "700",
+        fontWeight: 700,
         textAlign: "center",
       }}
     >
-      <p>404 - Page not found</p>
+      <p>404 - Page Not Found</p>
     </div>
   );
 }

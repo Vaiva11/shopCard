@@ -3,5 +3,6 @@ export default (products, id) =>
     if (id === product.id) {
       return { ...product, isFavorite: !product.isFavorite };
     }
+
     return product;
   });
