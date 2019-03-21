@@ -1,5 +1,6 @@
 import { RSAA } from "redux-api-middleware";
 import * as types from "./actionTypes";
+import { mapProducts } from "./utils";
 
 export const toggleFavorite = id => ({
   type: types.TOGGLE_FAVORITE_PRODUCT,
@@ -19,10 +20,11 @@ export const getProducts = () => ({
       types.FETCH_PRODUCTS,
       {
         type: types.FETCH_PRODUCTS_SUCCESS,
+        payload: mapProducts,
       },
       {
         type: types.FETCH_PRODUCTS_FAILURE,
-        payload: () => "Something REALLY wrong",
+        payload: "Something REALLY wrong",
       },
     ],
   },
